@@ -1,0 +1,208 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  z-index: 220;
+}
+
+.overlay.open {
+  display: grid;
+  animation: overlayFadeIn 0.28s var(--ease-out) both;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  position: relative;
+  width: min(560px, calc(100% - 44px));
+  max-height: 94vh;
+  overflow: hidden;
+  padding: 32px;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #111111;
+  box-shadow: var(--shadow-2);
+  animation: modalSlideIn 0.4s var(--ease-spring) both;
+}
+
+.modal::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+}
+
+/* Decorative glow removed for cleaner solid look */
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.modal-header h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text-1);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text-3);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.3s var(--ease-out);
+}
+
+.field:focus-within label {
+  color: var(--text-1);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 56px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-1);
+  outline: none;
+  resize: none;
+  transition: border-color 0.3s var(--ease-out), background 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.field textarea {
+  min-height: 120px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-4);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 12px 26px rgba(0, 0, 0, 0.28);
+  transform: translateY(-1px);
+}
+
+.field select option {
+  background: #111111;
+  color: var(--text-1);
+}
+
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #121212 inset !important;
+  -webkit-text-fill-color: var(--text-1) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.info-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.5;
+  animation: riseIn 0.36s var(--ease-out) both;
+}
+
+.info-banner .material-symbols-outlined {
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--text-1);
+}
+
+@media (max-width: 720px) {
+  .overlay {
+    padding: 14px;
+  }
+
+  .modal {
+    padding: 24px 18px;
+    border-radius: 26px;
+  }
+
+  .modal-header h2 {
+    font-size: 22px;
+  }
+
+  .row2 {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+}
