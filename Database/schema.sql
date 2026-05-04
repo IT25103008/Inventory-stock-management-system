@@ -1,11 +1,7 @@
--- ============================================================
--- 📦 PAPOL LITE — Inventory & Stock Management System
--- Database Schema (MySQL 8.x)
+
 -- ============================================================
 -- Project  : SE1020 — OOP Inventory System
 -- Database : papol_lite
--- Engine   : InnoDB (default)
--- Charset  : utf8mb4
 -- ============================================================
 
 -- 1. Create the database
