@@ -1,9 +1,3 @@
--- ============================================================
--- 📦 PAPOL LITE — Sample / Seed Data
--- ============================================================
--- Run this AFTER schema.sql to populate the database with
--- demo data for development and testing.
--- ============================================================
 
 USE papol_lite;
 
