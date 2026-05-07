@@ -1,7 +1,5 @@
 package com.papol.inventory.controller;
 
-// WHY: Thin Controller — delegates all logic to SupplierService (Separation of Concerns).
-// WHAT: REST endpoints for Supplier CRUD operations.
 
 import com.papol.inventory.model.Supplier;
 import com.papol.inventory.service.SupplierService;
@@ -17,11 +15,11 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierService;
 
-    // WHAT: GET /suppliers — returns all suppliers as JSON.
+   
     @GetMapping("/suppliers")
     public List<Supplier> getAll()                        { return supplierService.getAllSuppliers(); }
 
-    // WHAT: GET /suppliers/{id} — returns one supplier or HTTP 404.
+   
     @GetMapping("/suppliers/{id}")
     public ResponseEntity<?> getOne(@PathVariable String id) {
         return supplierService.getSupplierById(id)
@@ -29,13 +27,13 @@ public class SupplierController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // WHAT: POST /suppliers — creates a new supplier. Returns HTTP 201.
+   
     @PostMapping("/suppliers")
     public ResponseEntity<Supplier> add(@RequestBody Supplier s) {
         return ResponseEntity.status(201).body(supplierService.addSupplier(s));
     }
 
-    // WHAT: PUT /suppliers/{id} — updates a supplier. HTTP 404 if not found.
+   
     @PutMapping("/suppliers/{id}")
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody Supplier s) {
         try {
@@ -45,7 +43,7 @@ public class SupplierController {
         }
     }
 
-    // WHAT: DELETE /suppliers/{id} — removes a supplier.
+   
     @DeleteMapping("/suppliers/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) {
         supplierService.deleteSupplier(id);
