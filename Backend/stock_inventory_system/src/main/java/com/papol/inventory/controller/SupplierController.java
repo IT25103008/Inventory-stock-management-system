@@ -2,7 +2,6 @@ package com.papol.inventory.controller;
 
 
 import com.papol.inventory.model.Supplier;
-import com.papol.inventory.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
