@@ -1,7 +1,5 @@
 package com.papol.inventory.controller;
 
-
-
 import com.papol.inventory.model.Product;
 import com.papol.inventory.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
