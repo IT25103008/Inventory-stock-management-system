@@ -35,6 +35,6 @@ public class SupplierService {
         return supplierRepository.save(existing);
     }
 
-    // WHAT: Deletes a supplier by ID.
+    
     public void deleteSupplier(String id)                { supplierRepository.deleteById(id); }
 }
