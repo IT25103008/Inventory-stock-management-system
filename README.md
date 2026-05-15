@@ -14,6 +14,61 @@
 </div>
 
 ---
+## 1. System Overview
+
+The Inventory & Stock Management System is a full-stack web application built using **Spring Boot** (backend) and **HTML/CSS/JavaScript** (frontend). It manages products, stock movements, suppliers, categories, users, and reports through a unified REST API running on port `8080`.
+
+The backend follows a strict **Four-Layer Architecture**:
+
+| Layer | Responsibility | Key Annotations |
+|---|---|---|
+| **Model** | Maps Java classes to MySQL tables | `@Entity`, `@Table`, `@Id`, `@Column` |
+| **Repository** | Provides CRUD database access | `JpaRepository` (implicit `@Repository`) |
+| **Service** | Contains business logic and validation | `@Service`, `@Autowired`, `@Transactional` |
+| **Controller** | Handles HTTP requests and JSON responses | `@RestController`, `@GetMapping`, `@PostMapping`, etc. |
+
+**OOP Principles Applied Across the System:**
+
+| OOP Principle | Where It Appears |
+|---|---|
+| **Encapsulation** | All model classes use `private` fields with public getters/setters |
+| **Abstraction** | Repository interfaces hide SQL; Service methods hide business logic from Controllers |
+| **Inheritance** | `Employee` (abstract) → `Admin` and `StaffMember` subclasses (Member 5) |
+| **Polymorphism** | `Employee` reference can hold either `Admin` or `StaffMember` objects |
+
+---
+
+## 2. Database Schema Summary
+
+| Table | Primary Key | Owner | Foreign Keys |
+|---|---|---|---|
+| `products` | `product_id` (VARCHAR 10) | Member 1 | `category_id` → categories, `supplier_id` → suppliers |
+| `stock_transactions` | `transaction_id` (VARCHAR 10) | Member 2 | `product_id` → products |
+| `suppliers` | `supplier_id` (VARCHAR 10) | Member 3 | None |
+| `categories` | `category_id` (VARCHAR 10) | Member 4 | None |
+| `users` | `user_id` (VARCHAR 10) | Member 5 | None (uses JPA Inheritance — SINGLE_TABLE strategy) |
+| `reports` | `report_id` (VARCHAR 10) | Member 6 | `generated_by` → users |
+
+---
+
+## 3. Shared / Infrastructure Work
+
+Before individual module work begins, the following shared components are required by **all** members:
+
+| Shared Component | File / Config | Purpose |
+|---|---|---|
+| Spring Boot Entry Point | `StockInventorySystemApplication.java` | `@SpringBootApplication` — starts the entire backend |
+| CORS Configuration | `config/CorsConfig.java` | Prevents browser CORS blocks when frontend calls port 8080 |
+| Application Properties | `application.properties` | MySQL connection string, Hibernate settings, port 8080 |
+| Maven Dependencies | `pom.xml` | `spring-boot-starter-web`, `spring-boot-starter-data-jpa`, `mysql-connector-j`, `spring-boot-devtools` |
+| Database Setup | `papol_lite` schema + all 6 CREATE TABLE statements + sample INSERT data | Shared MySQL database |
+| Package Structure | `com.papol.inventory.{model, repository, service, controller, config}` | Standard package tree |
+
+---
+
+## 4. Detailed Member Work Distribution
+
+---
 
 ## 📦 Component 01: Product Management  
 > **Member:** `IT25100361` — **Subasingha S.U.D**
