@@ -3,7 +3,6 @@
 # 📋 SE1020 – Object Oriented Programming
 
 ### Assignment: Project  
-### Workload Distribution
 
 ---
 
