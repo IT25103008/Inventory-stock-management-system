@@ -2,18 +2,11 @@ package com.papol.inventory.model;
 
 import jakarta.persistence.*;
 
-// WHY: Supplier represents a vendor that provides products to the inventory.
-//      Like Product and Category, it uses ENCAPSULATION — all fields are private
-//      and accessed only through getters and setters.
-// WHAT: Maps to the 'suppliers' table. Products link to suppliers via supplier_id.
-// NOTE: Supplier contact info (phone, email, address) is optional — columns allow NULL.
-//       This is a practical design choice: not all suppliers may have email addresses.
 
 @Entity
 @Table(name = "suppliers")
 public class Supplier {
 
-    // WHY: Private fields enforcing ENCAPSULATION — controlled access only.
     @Id
     @Column(name = "supplier_id")
     private String supplierId;
@@ -30,10 +23,11 @@ public class Supplier {
     @Column(name = "address")
     private String address;
 
-    // WHY: JPA no-arg constructor requirement.
+   
+    
     public Supplier() {}
 
-    // WHAT: Full constructor for programmatic creation.
+   
     public Supplier(String supplierId, String name, String contact, String email, String address) {
         this.supplierId = supplierId;
         this.name       = name;
@@ -42,7 +36,6 @@ public class Supplier {
         this.address    = address;
     }
 
-    // WHY: Getters and setters — Encapsulation access mechanism.
     public String getSupplierId()              { return supplierId; }
     public void   setSupplierId(String id)     { this.supplierId = id; }
 
