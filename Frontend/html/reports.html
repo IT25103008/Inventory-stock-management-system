@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reports — Papol | Inventory & Stock Management System</title>
+<meta name="description" content="Inventory analytics, low-stock alerts, and stock movement history in the Papol system">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/table-pages.css">
+<link rel="stylesheet" href="../css/reports.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#fff" stroke-width="2.5" fill="none"><ellipse cx="50" cy="62" rx="22" ry="28" fill="#fff" stroke="none"/><ellipse cx="50" cy="62" rx="22" ry="28"/><path d="M50 34 C50 20,38 10,32 6" stroke-width="2.2" stroke-linecap="round"/><path d="M50 34 C50 18,56 8,60 4" stroke-width="2.2" stroke-linecap="round"/><path d="M50 34 C48 22,42 16,36 14" stroke-width="2" stroke-linecap="round"/><path d="M50 34 C52 22,58 14,64 12" stroke-width="2" stroke-linecap="round"/><path d="M50 34 C50 24,50 16,50 8" stroke-width="2" stroke-linecap="round"/><line x1="34" y1="50" x2="66" y2="50" stroke-width="1.5" opacity=".4"/><line x1="32" y1="62" x2="68" y2="62" stroke-width="1.5" opacity=".4"/><line x1="34" y1="74" x2="66" y2="74" stroke-width="1.5" opacity=".4"/><path d="M40 42 Q50 48 60 42" stroke-width="1.5" fill="none" opacity=".3"/><path d="M38 54 Q50 60 62 54" stroke-width="1.5" fill="none" opacity=".3"/><path d="M38 66 Q50 72 62 66" stroke-width="1.5" fill="none" opacity=".3"/><path d="M40 78 Q50 84 60 78" stroke-width="1.5" fill="none" opacity=".3"/></g></svg>
+      <div class="brand-text"><span class="brand-name">Papol</span><span class="brand-sub">Inventory & Stock Management System</span></div>
+    </div>
+    <span class="nav-section">Main</span>
+    <a href="dashboard.html" class="nav-item"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
+    <span class="nav-section">Inventory</span>
+    <a href="products.html" class="nav-item"><span class="material-symbols-outlined">inventory</span>Products</a>
+    <a href="categories.html" class="nav-item"><span class="material-symbols-outlined">category</span>Categories</a>
+    <a href="stock.html" class="nav-item"><span class="material-symbols-outlined">swap_vert</span>Stock Transactions</a>
+    <span class="nav-section">Management</span>
+    <a href="suppliers.html" class="nav-item"><span class="material-symbols-outlined">local_shipping</span>Suppliers</a>
+    <a href="users.html" class="nav-item"><span class="material-symbols-outlined">manage_accounts</span>Users</a>
+    <a href="reports.html" class="nav-item active"><span class="material-symbols-outlined">bar_chart</span>Reports</a>
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="user-avatar" id="userInitial">A</div>
+        <div class="user-info"><div class="user-name" id="userName">—</div><div class="user-role" id="userRole">—</div></div>
+        <a href="login.html" style="color:var(--on-muted);display:grid;place-items:center"><span class="material-symbols-outlined" style="font-size:18px">logout</span></a>
+      </div>
+    </div>
+  </aside>
+  <main class="main" style="max-width:1200px">
+    <div class="topbar">
+      <div class="page-title"><h1>Reports</h1><p>Inventory analytics, alerts, and movement history</p></div>
+      <div class="hero-actions">
+        <button class="refresh-btn" onclick="loadAll()">
+          <span class="material-symbols-outlined">refresh</span>Refresh
+        </button>
+        <button class="export-btn" id="exportBtn" onclick="exportReport()">
+          <span class="material-symbols-outlined">download</span>Export
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="s-label"><span class="material-symbols-outlined">warning</span>Low Stock Items</div>
+        <div class="s-value" id="sumLow">—</div>
+        <div class="s-sub">Products below qty threshold (5)</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-label"><span class="material-symbols-outlined">payments</span>Total Inventory Value</div>
+        <div class="s-value" id="sumValue">—</div>
+        <div class="s-sub">Sum of price × quantity</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-label"><span class="material-symbols-outlined">receipt_long</span>Total Transactions</div>
+        <div class="s-value" id="sumTxns">—</div>
+        <div class="s-sub">All stock movements recorded</div>
+      </div>
+    </div>
+
+    <!-- Section 1: Low Stock Alert -->
+    <div class="report-section">
+      <div class="report-header">
+        <div class="report-header-left">
+          <div class="report-icon"><span class="material-symbols-outlined" style="color:#ff8080">warning</span></div>
+          <div><div class="report-title">Low Stock Alert</div><div class="report-subtitle">Products with quantity below 5 units</div></div>
+        </div>
+        <a href="products.html" class="btn btn-outline" style="font-size:12px;padding:7px 14px">
+          <span class="material-symbols-outlined" style="font-size:15px">open_in_new</span>View Products
+        </a>
+      </div>
+      <div class="report-body">
+        <table>
+          <thead><tr><th>Product ID</th><th>Name</th><th>Quantity</th><th>Price (LKR)</th><th>Status</th></tr></thead>
+          <tbody id="lowStockBody">
+            <tr><td colspan="5"><div class="empty-state"><span class="material-symbols-outlined">hourglass_empty</span>Loading…</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 2: Inventory Value -->
+    <div class="report-section">
+      <div class="report-header">
+        <div class="report-header-left">
+          <div class="report-icon"><span class="material-symbols-outlined">payments</span></div>
+          <div><div class="report-title">Inventory Value</div><div class="report-subtitle">Current stock value per product (price × quantity)</div></div>
+        </div>
+      </div>
+      <div class="report-body">
+        <table>
+          <thead><tr><th>Product ID</th><th>Name</th><th>Quantity</th><th>Unit Price</th><th>Total Value</th></tr></thead>
+          <tbody id="valueBody">
+            <tr><td colspan="5"><div class="empty-state"><span class="material-symbols-outlined">hourglass_empty</span>Loading…</div></td></tr>
+          </tbody>
+        </table>
+        <div class="value-total-row">
+          <span>Total Inventory Value</span>
+          <span class="total-amount" id="totalValue">LKR 0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Stock Movement -->
+    <div class="report-section">
+      <div class="report-header">
+        <div class="report-header-left">
+          <div class="report-icon"><span class="material-symbols-outlined">receipt_long</span></div>
+          <div><div class="report-title">Stock Movement History</div><div class="report-subtitle">All stock-in and stock-out transactions</div></div>
+        </div>
+        <a href="stock.html" class="btn btn-outline" style="font-size:12px;padding:7px 14px">
+          <span class="material-symbols-outlined" style="font-size:15px">open_in_new</span>Manage Transactions
+        </a>
+      </div>
+      <div class="report-body">
+        <table>
+          <thead><tr><th>Transaction ID</th><th>Product</th><th>Type</th><th>Quantity</th><th>Date</th><th>Notes</th></tr></thead>
+          <tbody id="movementBody">
+            <tr><td colspan="6"><div class="empty-state"><span class="material-symbols-outlined">hourglass_empty</span>Loading…</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="../js/nav-guard.js"></script>
+<script src="../js/reports.js"></script>
+</body>
+</html>
