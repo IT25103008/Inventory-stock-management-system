@@ -100,6 +100,51 @@
   }
 }
 
+/* ── Hero action buttons wrapper ────────────────── */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Export button ───────────────────────────────── */
+.export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 20px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--text-1);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.35s var(--ease-out),
+              border-color 0.35s var(--ease-out),
+              background 0.35s var(--ease-out),
+              box-shadow 0.35s var(--ease-out);
+}
+
+.export-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.13);
+  box-shadow: var(--shadow-1);
+}
+
+.export-btn:hover .material-symbols-outlined {
+  animation: bounceDown 0.45s var(--ease-out);
+}
+
+@keyframes bounceDown {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+
 .summary-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
